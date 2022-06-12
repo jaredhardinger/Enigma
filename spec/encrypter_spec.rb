@@ -10,7 +10,11 @@ RSpec.describe Encrypter do
 		expect(@encryption).to be_a(Encrypter)
 	end
 
-	it 'has attributes' do
-		expect(@encryption.key_split).to eq([[0, 2], [2, 7], [7, 1], [1, 5]])
+	it 'can split the key into two digit chunks' do
+		expect(@encryption.key_split).to eq([02, 27, 71, 15])
   end
+
+	it 'can make the offsets' do
+		expect(@encryption.offset).to eq({a: 1, b: 0, c: 2, d: 5})
+	end
 end
