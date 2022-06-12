@@ -15,6 +15,6 @@ RSpec.describe Encrypter do
   end
 
 	it 'can make the offsets' do
-		expect(@encryption.offset).to eq({a: 1, b: 0, c: 2, d: 5})
+		expect(@encryption.offset).to eq([1, 0, 2, 5])
 	end
 end
