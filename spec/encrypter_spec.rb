@@ -21,4 +21,8 @@ RSpec.describe Encrypter do
 	it 'can return each characters corresponding number in sequence' do
 		expect(@encryption.message_to_nums).to eq([8, 5, 12, 12, 15, 27, 23, 15, 18, 12, 4])
 	end
+
+	it 'can shift numbers' do
+		expect(@encryption.shift).to eq([9, 5, 14, 17, 16, 27, 25, 20, 19, 12, 6])
+	end
 end
