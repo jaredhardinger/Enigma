@@ -10,8 +10,8 @@ class Encrypter
   end
 
   def key_split
-    key_array = @key.chars.map(&:to_i)
-    key_array.each_cons(2).to_a
+    split_stringset = @key.chars.each_cons(2).to_a
+    split_ints = split_stringset.map { |set| set.join.to_i }
   end
 
 end
