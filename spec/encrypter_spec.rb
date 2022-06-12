@@ -17,4 +17,8 @@ RSpec.describe Encrypter do
 	it 'can make the offsets' do
 		expect(@encryption.offset).to eq([1, 0, 2, 5])
 	end
+
+	it 'can return each characters corresponding number in sequence' do
+		expect(@encryption.message_to_nums).to eq([8, 5, 12, 12, 15, 27, 23, 15, 18, 12, 4])
+	end
 end
