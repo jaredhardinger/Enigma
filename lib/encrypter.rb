@@ -14,4 +14,10 @@ class Encrypter
     split_ints = split_stringset.map { |set| set.join.to_i }
   end
 
+  def offset
+    square = @date.to_i ** 2
+    square_chars = square.to_s.chars
+    offsets = square_chars.last(4).map(&:to_i)
+  end
+
 end
