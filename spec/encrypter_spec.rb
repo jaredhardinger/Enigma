@@ -3,7 +3,7 @@ require 'rspec'
 
 RSpec.describe Encrypter do
 	before :each do
-		@encryption = Encrypter.new("hello world", "02715", "040895")
+		@encryption = Encrypter.new("hello world!", "02715", "040895")
 	end
 
 	it 'exists' do
@@ -15,7 +15,7 @@ RSpec.describe Encrypter do
   end
 
 	it 'can make the offsets' do
-		expect(@encryption.offset).to eq([1, 0, 2, 5])
+		expect(@encryption.offsets).to eq([1, 0, 2, 5])
 	end
 
 	it 'can calculate the final shifts' do
@@ -23,11 +23,11 @@ RSpec.describe Encrypter do
 	end
 
 	it 'can return each characters corresponding number in sequence' do
-		expect(@encryption.message_to_nums).to eq([8, 5, 12, 12, 15, 27, 23, 15, 18, 12, 4])
+		expect(@encryption.message_to_nums).to eq([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3])
 	end
 
 	it 'can shift numbers' do
-		expect(@encryption.shift).to eq([9, 5, 14, 17, 16, 27, 25, 20, 19, 12, 6])
+		expect(@encryption.shift).to eq([10, 31, 84, 31, 17, 53, 95, 34, 20, 38, 76])
 	end
 
 	it 'can return the encrpted message' do
