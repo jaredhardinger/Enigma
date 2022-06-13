@@ -5,16 +5,16 @@ class Encrypter
     @key = key
     @date = date
     @char_map = ('a'..'z').to_a << ' '
-    @char_hash = {}
-    n = 0
-    until n == 27
-      @char_hash[@char_map[n]] = n+1
-      n+=1
-    end
   end
 
   def encrypt
-
+    characters = shift.map do |value|
+      if value.class == Integer
+        @char_map.rotate(value).first
+      else value
+      end
+    end.to_a
+    characters * ''
   end
 
   def key_split
@@ -22,16 +22,20 @@ class Encrypter
     split_stringset.map { |set| set.join.to_i }
   end
 
-  def offset
+  def offsets
     square = @date.to_i ** 2
     square_chars = square.to_s.chars
     offsets = square_chars.last(4).map(&:to_i)
   end
 
+  def final_shift
+    (0..3).map { |number| offsets[number] + key_split[number] }
+  end
+
   def message_to_nums
     char_array = @message.chars.to_a
     char_array.map do |char|
-      @char_map.include?(char) ? @char_hash[char] : char
+      @char_map.include?(char) ? @char_map.index(char) : char
     end
   end
 
@@ -40,11 +44,12 @@ class Encrypter
     message_to_nums.each_slice(4) do |slice|
       slice.each_with_index do |value, index|
         shifted << value if value.class != Integer
-        shifted << value.to_i + offset[index] if value.class == Integer
+        shifted << value.to_i + final_shift[index] if value.class == Integer
       end
     end
     shifted
   end
+
 end
 
 # shifted = []
