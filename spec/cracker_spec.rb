@@ -10,6 +10,10 @@ RSpec.describe Cracker do
 		expect(@decryption).to be_a(Cracker)
 	end
 
+  it 'can convert " end" to its numeric equivalent' do
+    expect(@decryption).to be_a(Array)
+  end
+
   it 'can determine the key' do
     expect(@decryption.key).to eq(!empty?)
   end
