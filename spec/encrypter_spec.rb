@@ -25,4 +25,8 @@ RSpec.describe Encrypter do
 	it 'can shift numbers' do
 		expect(@encryption.shift).to eq([9, 5, 14, 17, 16, 27, 25, 20, 19, 12, 6])
 	end
+
+	it 'can return the encrpted message' do
+		expect(@encryption.encrypt).to eq("keder ohulw")
+	end
 end
