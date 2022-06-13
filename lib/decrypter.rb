@@ -1,4 +1,4 @@
-class Encrypter
+class Decrypter
   def initialize(message, key, date)
     @message = message
     @key = key
@@ -6,8 +6,8 @@ class Encrypter
     @char_map = ('a'..'z').to_a << ' '
   end
 
-  def encrypt
-    characters = shift.map do |value|
+  def decrypt
+    characters = unshift.map do |value|
       if value.class == Integer
         @char_map.rotate(value).first
       else value
@@ -38,12 +38,12 @@ class Encrypter
     end
   end
 
-  def shift
+  def unshift
     shifted = []
     message_to_nums.each_slice(4) do |slice|
       slice.each_with_index do |value, index|
         shifted << value if value.class != Integer
-        shifted << value.to_i + final_shift[index] if value.class == Integer
+        shifted << value.to_i - final_shift[index] if value.class == Integer
       end
     end
     shifted
