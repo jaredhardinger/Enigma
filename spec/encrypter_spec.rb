@@ -3,7 +3,7 @@ require 'rspec'
 
 RSpec.describe Encrypter do
 	before :each do
-		@encryption = Encrypter.new("hello world!", "02715", "040895")
+		@encryption = Encrypter.new("hello world", "02715", "040895")
 	end
 
 	it 'exists' do
