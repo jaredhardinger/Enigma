@@ -22,9 +22,9 @@ class Decrypter
   end
 
   def offsets
-    square = @date.to_i ** 2
+    square = @date.to_i**2
     square_chars = square.to_s.chars
-    offsets = square_chars.last(4).map(&:to_i)
+    square_chars.last(4).map(&:to_i)
   end
 
   def final_shift

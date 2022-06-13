@@ -23,14 +23,16 @@ RSpec.describe Decrypter do
 	end
 
 	it 'can return each characters corresponding number in sequence' do
-		expect(@decryption.message_to_nums).to eq([10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22])
+    array = [10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22]
+		expect(@decryption.message_to_nums).to eq(array)
 	end
 
 	it 'can unshift numbers' do
-		expect(@decryption.unshift).to eq([7, -23, -70, -16, 14, -1, -59, -13, 17, -16, -51])
+    array = [7, -23, -70, -16, 14, -1, -59, -13, 17, -16, -51]
+		expect(@decryption.unshift).to eq(array)
 	end
 
-	it 'can return the encrpted message' do
+	it 'can return the encrypted message' do
 		expect(@decryption.decrypt).to eq("hello world")
 	end
 end
