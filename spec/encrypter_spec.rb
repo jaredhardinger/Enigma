@@ -30,7 +30,7 @@ RSpec.describe Encrypter do
 		expect(@encryption.shift).to eq([10, 31, 84, 31, 17, 53, 95, 34, 20, 38, 76])
 	end
 
-	it 'can return the encrpted message' do
-		expect(@encryption.encrypt).to eq("keder ohulw")
+	it 'can return the encrypted message' do
+		expect(@encryption.encrypt).to eq({encryption: "keder ohulw", key: "02715", date: "040895"})
 	end
 end
