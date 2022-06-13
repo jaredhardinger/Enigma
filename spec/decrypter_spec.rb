@@ -33,6 +33,6 @@ RSpec.describe Decrypter do
 	end
 
 	it 'can return the encrypted message' do
-		expect(@decryption.decrypt).to eq("hello world")
+		expect(@decryption.decrypt).to eq({decryption: "hello world", key: "02715", date: "040895"})
 	end
 end
