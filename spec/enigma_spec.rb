@@ -31,4 +31,24 @@ RSpec.describe Enigma do
 	it 'can encrypt a message (generates random key and uses todays date)' do
 		expect(@enigma.encrypt("hello world")).to be_a(Hash)
 	end
+
+	it 'can crack an encryption with a date' do
+		expected = {
+		    encryption: "hello world end",
+		    key: "08304",
+		    date: "291018"
+		  }
+		expect(@enigma.cracker("vjqtbeaweqihssi", "291018")).to eq(expected)
+	end
+
+	it 'can crack an encryption (using todays date)' do
+		expect(@enigma.cracker("vjqtbeaweqihssi")[:decryption]).to eq("hello world end")
+
+		#=>
+		#   {
+		#     decryption: "hello world end",
+		#     date: # todays date in the format DDMMYY,
+		#     key: # key used for encryption
+		#   }
+	end
 end

@@ -1,6 +1,7 @@
 require 'date'
 require './lib/encrypter'
 require './lib/decrypter'
+require './lib/cracker'
 
 class Enigma
   def initialize
@@ -14,5 +15,9 @@ class Enigma
 
   def decrypt(message, key = @random, date = @today)
     Decrypter.new(message.downcase, key, date).decrypt
+  end
+
+  def crack(message, date = @today)
+    Cracker.new(message.downcase, date).decrypt
   end
 end
