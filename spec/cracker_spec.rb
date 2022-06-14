@@ -10,37 +10,33 @@ RSpec.describe Cracker do
 		expect(@decryption).to be_a(Cracker)
 	end
 
-  it 'can convert " end" to its numeric equivalent' do
-    expect(@decryption).to be_a(Array)
+  it 'can determine the final shift' do
+    expect(@decryption.final_shift).to eq([14, 5, 5, -19])
+  end
+
+  it 'can unshift' do
+    expect(@decryption.unshift).to eq([7, 4, 11, 38, -13, -1, -5, 41, -10, 11, 3, 26, 4, 13, 3])
+  end
+
+  it 'can make the offsets' do
+    expect(@decryption.offsets).to eq([6, 3, 2, 4])
   end
 
   it 'can determine the key' do
-    expect(@decryption.key).to eq(!empty?)
+    expect(@decryption.key).to eq("08304")
   end
 
-	xit 'can split the key into two digit chunks' do
-		expect(@decryption.key_split).to eq([02, 27, 71, 15])
-  end
-
-	xit 'can make the offsets' do
-		expect(@decryption.offsets).to eq([1, 0, 2, 5])
-	end
-
-	xit 'can calculate the final shifts' do
-		expect(@decryption.final_shift).to eq([3, 27, 73, 20])
-	end
-
-	xit 'can return each characters corresponding number in sequence' do
-    array = [10, 4, 3, 4, 17, 26, 14, 7, 20, 11, 22]
+	it 'can return each characters corresponding number in sequence' do
+    array = [21, 9, 16, 19, 1, 4, 0, 22, 4, 16, 8, 7, 18, 18, 8]
 		expect(@decryption.message_to_nums).to eq(array)
 	end
 
-	xit 'can unshift numbers' do
-    array = [7, -23, -70, -16, 14, -1, -59, -13, 17, -16, -51]
+	it 'can unshift numbers' do
+    array = [7, 4, 11, 38, -13, -1, -5, 41, -10, 11, 3, 26, 4, 13, 3]
 		expect(@decryption.unshift).to eq(array)
 	end
 
-	xit 'can return the encrypted message' do
-		expect(@decryption.decrypt).to eq({encryption: "hello world end", key: "08304", date: "291018"})
+	it 'can return the decrypted message' do
+		expect(@decryption.decrypt).to eq({decryption: "hello world end", key: "08304", date: "291018"})
 	end
 end
