@@ -3,8 +3,9 @@ require './lib/enigma'
 handle = File.open(ARGV[0], 'r')
 message = handle.read
 handle.close
-encrypted_message = Enigma.new.encrypt(message)
-puts encrypted_message
+
+encrypted_message = Enigma.new.encrypt(message.chomp)
+
 writer = File.open(ARGV[1], 'w')
 writer.write(encrypted_message[:encryption])
 writer.close
