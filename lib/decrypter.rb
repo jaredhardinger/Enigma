@@ -13,7 +13,8 @@ class Decrypter
       else value
       end
     end.to_a
-    characters * ''
+    decryption = characters * ''
+    return_hash = {decryption: decryption, key: @key, date: @date}
   end
 
   def key_split
