@@ -4,6 +4,7 @@ require 'rspec'
 RSpec.describe Decrypter do
 	before :each do
 		@decryption = Decrypter.new("keder ohulw", "02715", "040895")
+		@decryption2 = Decrypter.new("zi gfdkjips!", "12345", "140622")
 	end
 
 	it 'exists' do
@@ -34,5 +35,9 @@ RSpec.describe Decrypter do
 
 	it 'can return the encrypted message' do
 		expect(@decryption.decrypt).to eq({decryption: "hello world", key: "02715", date: "040895"})
+	end
+
+	it 'can return the encrypted message that includes a special character' do
+		expect(@decryption2.decrypt).to eq({decryption: "hello world!", key: "12345", date: "140622"})
 	end
 end

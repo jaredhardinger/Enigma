@@ -4,6 +4,7 @@ require 'rspec'
 RSpec.describe Encrypter do
 	before :each do
 		@encryption = Encrypter.new("hello world", "02715", "040895")
+		@encryption2 = Encrypter.new("hello world!", "12345", "140622")
 	end
 
 	it 'exists' do
@@ -32,5 +33,9 @@ RSpec.describe Encrypter do
 
 	it 'can return the encrypted message' do
 		expect(@encryption.encrypt).to eq({encryption: "keder ohulw", key: "02715", date: "040895"})
+	end
+
+	it 'can return the encrypted message that includes a character outside of the character map' do
+		expect(@encryption2.encrypt).to eq({encryption: "zi gfdkjips!", key: "12345", date: "140622"})
 	end
 end
