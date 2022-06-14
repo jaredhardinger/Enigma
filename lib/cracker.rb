@@ -1,7 +1,6 @@
 class Cracker
   def initialize(message, date)
     @message = message
-    @key = []
     @date = date
     @char_map = ('a'..'z').to_a << ' '
   end
@@ -14,12 +13,7 @@ class Cracker
       end
     end.to_a
     decryption = characters * ''
-    return_hash = {decryption: decryption, key: @key, date: @date}
-  end
-
-  def key_split
-    split_stringset = @key.chars.each_cons(2).to_a
-    split_stringset.map { |set| set.join.to_i }
+    return_hash = {decryption: decryption, key: key, date: @date}
   end
 
   def offsets
@@ -28,12 +22,67 @@ class Cracker
     square_chars.last(4).map(&:to_i)
   end
 
-  def final_shift
-    (0..3).map { |number| offsets[number] + key_split[number] }
+  def key
+    proto_vals = (0..3).map { |number| final_shift[number] - offsets[number] }
+    positive_vals = proto_vals.map do |val|
+      if val < 0
+        val += @char_map.length
+      elsif val >= @char_map.length
+        val -= @char_map.length
+      else val
+      end
+    end
+    possible_as = []
+    possible_bs = []
+    possible_cs = []
+    possible_ds = []
+    while positive_vals[0] < 100
+      possible_as << positive_vals[0]
+      positive_vals[0] += @char_map.length
+    end
+    while positive_vals[1] < 100
+      possible_bs << positive_vals[1]
+      positive_vals[1] += @char_map.length
+    end
+    while positive_vals[2] < 100
+      possible_cs << positive_vals[2]
+      positive_vals[2] += @char_map.length
+    end
+    while positive_vals[3] < 100
+      possible_ds << positive_vals[3]
+      positive_vals[3] += @char_map.length
+    end
+    all_possible_key_splits = []
+    possible_as.each do |a|
+      possible_bs.each do |b|
+        possible_cs.each do |c|
+          possible_ds.each do |d|
+            all_possible_key_splits << [a, b, c, d]
+          end
+        end
+      end
+    end
+    padded = all_possible_key_splits.map do |split|
+      split.map do |val|
+        val.to_s.rjust(2, '0')
+      end
+    end
+    padded.delete_if do|split|
+      split[0][1] != split [1][0] || split[1][1] != split [2][0] || split[2][1] != split [3][0]
+    end
+    padded[0][0][0] + padded[0][1] + padded[0][3]
   end
 
-  def message_to_nums
-    char_array = @message.chars.to_a
+  def final_shift
+    end_chars = message_to_nums(' end')
+    last_four = message_to_nums.last(4)
+    shift = (0..3).map { |number| last_four[number] - end_chars[number] }
+    rotations = 4 - @message.length
+    shift.rotate(rotations)
+  end
+
+  def message_to_nums(message = @message)
+    char_array = message.chars.to_a
     char_array.map do |char|
       @char_map.include?(char) ? @char_map.index(char) : char
     end
