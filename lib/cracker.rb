@@ -1,4 +1,6 @@
+require_relative 'calculable'
 class Cracker
+  include Calculable
   def initialize(message, date)
     @message = message
     @date = date
@@ -16,19 +18,11 @@ class Cracker
     return_hash = {decryption: decryption, key: key, date: @date}
   end
 
-  def offsets
-    square = @date.to_i**2
-    square_chars = square.to_s.chars
-    square_chars.last(4).map(&:to_i)
-  end
-
   def key
     proto_vals = (0..3).map { |number| final_shift[number] - offsets[number] }
     positive_vals = proto_vals.map do |val|
       if val < 0
         val += @char_map.length
-      elsif val >= @char_map.length
-        val -= @char_map.length
       else val
       end
     end
@@ -79,13 +73,6 @@ class Cracker
     shift = (0..3).map { |number| last_four[number] - end_chars[number] }
     rotations = 4 - @message.length
     shift.rotate(rotations)
-  end
-
-  def message_to_nums(message = @message)
-    char_array = message.chars.to_a
-    char_array.map do |char|
-      @char_map.include?(char) ? @char_map.index(char) : char
-    end
   end
 
   def unshift
