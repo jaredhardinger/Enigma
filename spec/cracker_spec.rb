@@ -4,6 +4,7 @@ require 'rspec'
 RSpec.describe Cracker do
 	before :each do
 		@decryption = Cracker.new("vjqtbeaweqihssi", "291018")
+		@decryption2 = Cracker.new("&otmnhsdntyc", "140622")
 	end
 
 	it 'exists' do
@@ -38,5 +39,9 @@ RSpec.describe Cracker do
 
 	it 'can return the decrypted message' do
 		expect(@decryption.decrypt).to eq({decryption: "hello world end", key: "08304", date: "291018"})
+	end
+
+	it 'can return the decrypted message containing a special character' do
+		expect(@decryption2.decrypt).to eq({decryption: "& in the end", key: "08849", date: "140622"})
 	end
 end
